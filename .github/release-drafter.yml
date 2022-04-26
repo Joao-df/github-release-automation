@@ -1,0 +1,42 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚀 Features'
+    label: 'feature'
+  - title: '🛠️ Maintenance'
+    label: 'maintenance'
+  - title: '🐛 Bug Fixes'
+    label: 'bug'
+replacers:
+  - search: '/([A-Z]{2,5}-\d{1,6})/g'
+    replace: '[$1](https://electricops.atlassian.net/browse/$1)'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'feature'
+  patch:
+    labels:
+      - 'maintenance'
+      - 'bug'
+  default: patch
+
+autolabeler:
+  - label: 'maintenance'
+    title:
+      - '/^(build|chore|ci|docs|style|refactor|perf|test)(\(.*\))?(?!\!): .*$/'
+  - label: 'bug'
+    title:
+      - '/^fix(\(.*\))?(?!\!): .*$/'
+  - label: 'feature'
+    title:
+      - '/^feat(\(.*\))?(?!\!): .*$/'
+  - label: 'major'
+    title:
+      - '/^(fix|feat|build|chore|ci|docs|style|refactor|perf|test)(\(.*\))?\!: .*$/'
+
+template: |
+  ## What’s Changed
+  $CHANGES
